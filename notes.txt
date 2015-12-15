@@ -1,0 +1,128 @@
+sending data as x-www-form-urlencoded will send all our data to the server as query strings.
+
+We will use _id when we create a route to a single user.
+
+The :user_id from the request will be accessed thankfully due to the body-parser package we called earlier.
+
+=============================================================================================================
+
+Authenticating this API with token authentication
+===============================================================================================================
+No session information means your application can scale and add more machines as necessary without worrying about where a user is logged in.
+
+This token also expires after set period of time, so we will be required to login once again.
+
+When we create the web tokens, it will be using JSON Web Tokens...
+
+JWT can be passed along the HTTP header or through the url.
+
+jsonwebtoken package so that we will able to create and verify tokens.
+
+The signature, the third part of the token is made up of the hash of the following components:
+1. the header
+2. the payload
+3. secret
+4. The token is sent on every request so there are no CSRF attacks.
+
+The secret is the signature held by the server.  This is the way that our server will be able to verify existing tokens and sign new ones.  This is the only thing the server holds to verify the user.
+
+The JWT package will automatically create the header and signature of our JWT when we pass in the payload.
+
+======================================================================================================================
+Angular portion from Udemy
+======================================================================================================================
+directives allow to define behavior directly in the html.
+ng-init,ng-model accept all data types , boolean string etc...
+
+In a form, if you want to know if data is being binded in the input tags
+A quick way to verify in html page is to use
+<pre>{{formModel | json //Object we are binding too.}}</pre>  //pass through the variable to another function using the pipe command, json is a filter used to represent the function
+
+ng-click //THis directive is capturing any click on the function passed to this directive.  once it captures the click, it will call that function on your controller.
+
+<select></select>
+$http , whatever api endpoint you want to send the data too.
+
+HTML5 form validation - the browser itself will perform the validation.
+
+If you put the function in the form tag, it will trigger on the entire form instead and not on a click of the button.
+ng-submit directive in form
+
+It doesnt give specific feedback...
+
+Angular JS Validation
+--------------------------
+first switch off html5 validation 
+we do this by : calling novalidate = "novalidate"   //in the form tag 
+Give the form a name and this name is created as a object variable on scope automatically to use for validation
+$prestine flag - The form has not been touched yet
+pass theForm.$valid to the onSubmit function..... - The form will only submit if the form's valid flag is true.
+ng-class takes as input an object, if the key of the attribut in the object is true, it will add that key to the class for the html tag.
+
+twitter -bootstrap has an has error attribute so when that is automatically added due to ng-class bootstrap will render that attribute to red.
+
+==============================================================================
+Back To Mean Machine
+==============================================================================
+
+Services are the glue to linking frontend to backend
+They are way to contact our apis, get data back and provide that data to the controllers.
+Services
+Factories
+Providers - The only service that can be passed into config() to declare application wide settings.
+
+Services get the data and controllers receive it and send to the view.
+
+Our service will need to :
+ - get a single user - get(id)
+ - get all users - all()
+ - create a user - create(userData)
+ - update a user - update(id,userData)
+ - delete a user - delete(id)
+ 
+ Note: If your API is hosted on a separate server, then you will need to prefix all these /api/ URLs with your server URL like so: $http.get('http://example.com/api/users, ...).
+
+ Services can be used for more than just grabbing data. They can act as data objects and handle all the functions and properties necessary for a certain operation, in this case, authentication.
+
+ To authenticate our user, we will create authService.  It will have 3 main functions:
+  - login,logout,getCurrentUser,check if logged in..
+  - token auth fts - (get the token,save the token)
+  - auth interceptor (attach the tokens to HTTP requests,redirect if not logged in)
+  
+  The token auth factory will be more of a private factory to be used between the other two factories.
+
+  A pre-built solution would be ng-token-auth module...
+
+  Recap on steps taken to create this component:
+  Node JS side
+  1. Create the Mongoose Model
+  2. Create the API endpoints as routes
+  
+  Angular Side
+  1. Create the service to communicate with the API
+  2. Create the controllers for all the different pages(all,create,edit)
+  3. Set up your views and routes and assign controllers
+
+Bower 
+bower init
+.bowerrc - change directory here
+bower install <> --save
+
+Gulp
+So what exactly is a task runner? A task runner like Gulp is able to help automate any tasks you may have in your development process. This could include things like:
+
+linting files (checking them for errors)
+minifying files
+process LESS or SCSS
+concatenating multiple files into one
+Gulp can even start our nodemon server for us
+so much more…
+
+process: 
+Install the package and --save-dev
+Load the plugin in your gulpfile.js
+Configure a task and use the plugin!
+
+
+Also:
+All of our great development tools are now bundled into this one gulpfile.js and we are more efficient developers! There are many more great Gulp plugins to look through, so have fun experimenting with other plugins like imagemin and clean.
